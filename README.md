@@ -44,7 +44,7 @@ This project is designed to extract relationships from web pages using either th
 
 This step is broken down into several key activities, each leveraging specific libraries and methodologies:
 
-### 1. Web Page Retrieval and Text Extraction
+#### 1. Web Page Retrieval and Text Extraction
 
 1. **Checking for Unseen URLs**: The script maintains a set of URLs that have already been processed (`seen_pages`). For each URL fetched from the Google Custom Search results, it checks if the URL is in this set. If the URL is new, it proceeds with the retrieval; otherwise, it skips to the next URL.
 
@@ -54,13 +54,13 @@ This step is broken down into several key activities, each leveraging specific l
 
 4. **Text Truncation**: To manage processing efficiency, the script checks the length of the extracted text. If the text exceeds 10,000 characters, it is truncated to the first 10,000 characters. This limit ensures that the subsequent processing steps remain computationally manageable.
 
-### 2. Sentence Segmentation and Named Entity Recognition
+#### 2. Sentence Segmentation and Named Entity Recognition
 
 1. **Sentence Segmentation with spaCy**: The extracted and possibly truncated text is then processed with the spaCy NLP library. spaCy is used to segment the text into individual sentences, which is a necessary step for analyzing the text at the sentence level, as relationships are typically expressed within single sentences.
 
 2. **Named Entity Recognition (NER)**: For each sentence, spaCy's NER capabilities are utilized to identify and label entities with specific types such as PERSON, ORGANIZATION, etc. These entities are crucial for relation extraction, as the project focuses on relationships involving specific types of entities.
 
-### 3. Relation Extraction
+#### 3. Relation Extraction
 
 - **For SpanBERT**: 
   1. **Candidate Entity Pairs**: Based on the entities recognized in each sentence, the script generates candidate pairs of entities that could potentially express the target relationship (specified by the input parameter `r`).
@@ -72,7 +72,7 @@ This step is broken down into several key activities, each leveraging specific l
   2. **Extraction with Gemini**: The prompts are sent to the Gemini API, and the responses are parsed to extract the specified relationships. 
   3. **Storing Results**: Since Gemini does not provide confidence scores, all extracted relations are added to the set `X` with a hardcoded confidence value of 1.0.
 
-### 4. Integration into the Workflow
+#### 4. Integration into the Workflow
 
 This step is seamlessly integrated into the main workflow of the script. It iterates over the search results, processes each URL according to the steps outlined above, and accumulates the extracted relationships. The iterative approach, combined with the ability to refine the search query based on the results, allows the script to dynamically explore web content and extract relevant information efficiently.
 
